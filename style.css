@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main{
+    width: 600px;
+    height: 450px;
+    background-color: #e66c5d;
+    font-size: 20px;
+    border-radius: 8px;
+}
+.main input {
+    background-color: #e66c5d;
+    height: 60px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+.main button{
+    width: 200px;
+    height: 50px;
+    background-color: #997256;
+    border: none;
+    outline: none;
+}
+
+.main2{
+    width: 600px;
+    height: 650px;
+    background-color: #e66c5d;
+    font-size: 20px;
+    border-radius: 8px;
+}
+.main2 input {
+    background-color: #e66c5d;
+    height: 60px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+.main2 button{
+    width: 200px;
+    height: 50px;
+    background-color: #997256;
+    border: none;
+    outline: none;
+}
+.navbar{
+    background-color: #5f7f52;    
+}
+.navbar-brand{
+    color: white;
+}
+.navbar-brand:hover{
+    color: white;
+}
+.nav-link{
+    color: white;
+    font-size: large;
+}
+.nav-link:hover{
+    color: blue;
+    text-decoration: underline;
+    transition: 1s;
+    font-size: large;
+}
+.container-fluid{
+    display: flex;
+    justify-content: space-between !important ;
+}
+#logoutBtn{
+    width: 70px;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 10%;
+    background-color: gray;
+}
+#logoutBtn:hover{
+    background-color: blue;
+}
