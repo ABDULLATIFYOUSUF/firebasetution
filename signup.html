@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <section class="container mt-5 main2">
+    <section class="container mt-2 main2">
         <form onsubmit="return false">
             <h1 class="pt-2 text-decoration-underline">SIGNUP</h1>
     <div class="mb-3">
@@ -26,6 +26,13 @@
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" placeholder="Create Password">
+      </div>
+      <div class="mb-3">
+        <select id="type" class="form-select" aria-label="Default select example">
+          <option selected>Select Your Type</option>
+          <option value="Vendor">Vendor</option>
+          <option value="Customer">Customer</option>
+        </select>
       </div>
       <div class="mt-4">
       <button id="signupBtn">Submit</button>
