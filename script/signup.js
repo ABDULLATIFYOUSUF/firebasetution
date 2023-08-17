@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification,} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC5QSA7cWU70AxhfX7w6Fj3dueDP-jLiVQ",
@@ -12,6 +13,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const signupBtn = document.getElementById("signupBtn")
 signupBtn.addEventListener("click", signup)
@@ -22,9 +24,26 @@ async function signup(){
         const phoneNumber = document.getElementById("phoneNumber").value
         const email = document.getElementById("email").value
         const password = document.getElementById("password").value
-        const result = await createUserWithEmailAndPassword(auth, email, password)  
+        const type = document.getElementById("type").value
+
+        const appUser = {
+            fullName,
+            phoneNumber,
+            email,
+            type,
+            password
+        }
+        const result = await createUserWithEmailAndPassword(auth, appUser.email, appUser.password)  
         const uid = result.user.uid;
-        sendEmailVerification(auth.currentUser)
+        try {
+            const docRef = await addDoc(collection(db, "users"), {
+              ...appUser,
+              uid
+            });
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
         alert("Successfully Signed Up")
         window.location.replace("/index.html")
 

@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { getFirestore, collection, query, where, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC5QSA7cWU70AxhfX7w6Fj3dueDP-jLiVQ",
@@ -12,6 +13,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const loginBtn = document.getElementById("loginBtn")
 loginBtn.addEventListener("click", login)
@@ -22,14 +24,28 @@ async function login(){
         const email = document.getElementById("email").value
         const password = document.getElementById("password").value
         const result = await signInWithEmailAndPassword(auth, email, password)  
-        const uid = result.user.uid;
-        const emailVerified = result.user.emailVerified
-        if(emailVerified != "false"){
-          alert("User Login Successfully")
-        window.location.assign("/dashboad.html")
-        }else(
-          alert("verify your email first")
-        )
+        const uid = result.user.uid;  
+        alert("User Login Successfully")
+        
+        const q = query(collection(db, "users"));
+
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          const user1 = doc.data()
+          
+          if(uid === user1.uid && user1.type === "Vendor"){
+            window.location.replace("/vendorDashboard.html")
+          }else if(uid === user1.uid && user1.type === "Customer"){
+            window.location.replace("/customerDashboard.html")
+          }else if(uid === user1.uid && user1.type === "Admin"){
+            window.location.replace("/dashboard.html")
+          }
+          
+          
+        })
+
+        
+        
         
     } catch (error) {
         console.log(error.message)  
